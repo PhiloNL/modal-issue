@@ -20,3 +20,13 @@ resources/js/modal.js
 ### Debugging
 So far, I've found that removing `this.$wire.resetState();` (line 134 of modal.js) "fixes the problem", so it has to do something with the Livewire call to "resetState". Even if I empty this method (`resetState`) the problem still exists. So somehow the returned DOM triggers the `this.$watch('show)` to trigger indefinitely. 
 
+
+### Updates
+`x-init="init()"` can be removed from `modal.blade.php`, it now triggers init twice given alpine already does this automatically.
+
+Adding a console.log to the watcher will show the watcher keeps logging false in an indefinitely loop even if the value stays false:
+
+```js
+    this.$watch('show', value => {
+        console.log('show', value);
+```
