@@ -30,3 +30,18 @@ Adding a console.log to the watcher will show the watcher keeps logging false in
     this.$watch('show', value => {
         console.log('show', value);
 ```
+
+If I change the modal component blade (`resources/views/modal.blade.php) to the following minimum the issue still persists (1. open modal, 2. press escape, 3. open modal and close again by pressing escape, 4. you will not see an indefinite request loop in your console) 
+
+```blade
+<div>
+    <div
+            x-data="LivewireUIModal()"
+            x-on:keydown.escape.window="closeModalOnEscape()"
+            x-show="show"
+            style="display: none;"
+    >
+    hello
+    </div>
+</div>
+```
